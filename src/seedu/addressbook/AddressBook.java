@@ -477,6 +477,9 @@ public class AddressBook {
     }
 
     /**
+     * Retrieves all persons in the full model whose names have a substring same with the specified keywords.
+     * <p>
+     * The function of the previous code is following.
      * Retrieves all persons in the full model whose names contain some of the specified keywords.
      *
      * @param keywords for searching
@@ -485,9 +488,17 @@ public class AddressBook {
     private static ArrayList<String[]> getPersonsWithNameContainingAnyKeyword(Collection<String> keywords) {
         final ArrayList<String[]> matchedPersons = new ArrayList<>();
         for (String[] person : getAllPersonsInAddressBook()) {
+            /*
             final Set<String> wordsInName = new HashSet<>(splitByWhitespace(getNameFromPerson(person)));
             if (!Collections.disjoint(wordsInName, keywords)) {
                 matchedPersons.add(person);
+            }
+            */
+            final String nameOfPerson = getNameFromPerson(person);
+            for (String keywordToFind : keywords) {
+                if (keywordToFind.length() != 0 && nameOfPerson.contains(keywordToFind)) {
+                    matchedPersons.add(person);
+                }
             }
         }
         return matchedPersons;
